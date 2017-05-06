@@ -811,116 +811,21 @@
 </tbody>
 </table>
 <p>Sources: <a href="http://listenmusic.jp/newtype/anisoninfo/2015winter.htm">1</a> <a href="http://nariyama.sppd.ne.jp/as15winter.html">2</a> <a href="http://vgmdb.net/">3</a><br />
-</main><script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script><script type="text/javascript" src="/wp-content/uploads/2016/06/jquery.sortElements.js"></script><script type="text/javascript" src="/wp-content/uploads/2016/06/tableFunctions.js"></script></p>
-																	</div><!-- .entry-content -->
-				</div><!-- #post-## -->
-
-				
-<div id="disqus_thread">
-    </div>
-
-
-
-			</div><!-- #content -->
-		</div><!-- #container -->
-
-	</div><!-- #main -->
-
-
-<!-- WP Audio player plugin v1.9.6 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+</main><
+<div id="disqus_thread"></div>
     <script type="text/javascript">
-        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
-        soundManager.url = 'http://anisonpreviews.com/wp-content/plugins/compact-wp-audio-player/swf/soundmanager2.swf';
-        function play_mp3(flg, ids, mp3url, volume, loops)
-        {
-            //Check the file URL parameter value
-            var pieces = mp3url.split("|");
-            if (pieces.length > 1) {//We have got an .ogg file too
-                mp3file = pieces[0];
-                oggfile = pieces[1];
-                //set the file URL to be an array with the mp3 and ogg file
-                mp3url = new Array(mp3file, oggfile);
-            }
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'anisonpreviews-com';
+        var disqus_identifier = "2527 http:\/\/llamaop.wordpress.com\/?page_id=2527";
 
-            soundManager.createSound({
-                id: 'btnplay_' + ids,
-                volume: volume,
-                url: mp3url
-            });
-
-            if (flg == 'play') {
-    stop_all_tracks();                soundManager.play('btnplay_' + ids, {
-                    onfinish: function() {
-                        if (loops == 'true') {
-                            loopSound('btnplay_' + ids);
-                        }
-                        else {
-                            document.getElementById('btnplay_' + ids).style.display = 'inline';
-                            document.getElementById('btnstop_' + ids).style.display = 'none';
-                        }
-                    }
-                });
-            }
-            else if (flg == 'stop') {
-    //soundManager.stop('btnplay_'+ids);
-                soundManager.pause('btnplay_' + ids);
-            }
-        }
-        function show_hide(flag, ids)
-        {
-            if (flag == 'play') {
-                document.getElementById('btnplay_' + ids).style.display = 'none';
-                document.getElementById('btnstop_' + ids).style.display = 'inline';
-            }
-            else if (flag == 'stop') {
-                document.getElementById('btnplay_' + ids).style.display = 'inline';
-                document.getElementById('btnstop_' + ids).style.display = 'none';
-            }
-        }
-        function loopSound(soundID)
-        {
-            window.setTimeout(function() {
-                soundManager.play(soundID, {onfinish: function() {
-                        loopSound(soundID);
-                    }});
-            }, 1);
-        }
-        function stop_all_tracks()
-        {
-            soundManager.stopAll();
-            var inputs = document.getElementsByTagName("input");
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].id.indexOf("btnplay_") == 0) {
-                    inputs[i].style.display = 'inline';//Toggle the play button
-                }
-                if (inputs[i].id.indexOf("btnstop_") == 0) {
-                    inputs[i].style.display = 'none';//Hide the stop button
-                }
-            }
-        }
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
     </script>
-    <script type='text/javascript' src='/wp-includes/js/comment-reply.min.js?ver=4.6.5'></script>
-<script type='text/javascript' src='/wp-content/plugins/jetpack/modules/photon/photon.js?ver=20130122'></script>
-<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201718'></script>
-<script type='text/javascript' src='/wp-content/plugins/wp-featherlight/js/wpFeatherlight.pkgd.min.js?ver=1.0.0'></script>
-<script type='text/javascript' src='/wp-includes/js/wp-embed.min.js?ver=4.6.5'></script>
-<script type='text/javascript'>
-/* <![CDATA[ */
-var embedVars = {"disqusConfig":{"platform":"wordpress@4.6.5","language":""},"disqusIdentifier":"2527 http:\/\/llamaop.wordpress.com\/?page_id=2527","disqusShortname":"anisonpreviews-com","disqusTitle":"Winter 2015","disqusUrl":"http:\/\/anisonpreviews.com\/winter-2015-chart\/","options":{"manualSync":false},"postId":"2527"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='/wp-content/plugins/disqus-comment-system/media/js/disqus.js?ver=4.6.5'></script>
-<script type='text/javascript'>
-/* <![CDATA[ */
-var countVars = {"disqusShortname":"anisonpreviews-com"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='/wp-content/plugins/disqus-comment-system/media/js/count.js?ver=4.6.5'></script>
-<script type='text/javascript' src='http://stats.wp.com/e-201718.js' async defer></script>
-<script type='text/javascript'>
-	_stq = window._stq || [];
-	_stq.push([ 'view', {v:'ext',j:'1:4.4.1',blog:'112271849',post:'2527',tz:'9',srv:'anisonpreviews.com'} ]);
-	_stq.push([ 'clickTrackerInit', '112271849', '2527' ]);
-</script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </body>
 </html>
