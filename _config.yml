@@ -1,3 +1,4 @@
+ whitelist: [jekyll-redirect-from]
  plugins: [jekyll-redirect-from]
 
  gem install jekyll-redirect-from
