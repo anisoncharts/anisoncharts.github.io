@@ -1,0 +1,6 @@
+ plugins: [jekyll-redirect-from]
+
+ gem install jekyll-redirect-from
+ 
+ gems:
+  - jekyll-redirect-from
