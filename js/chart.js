@@ -92,7 +92,7 @@ function formatTable(fullData, tableName, search) {
 
                 if ($("#exactMatch").is(':checked')) {
                     if (songName == search || animeName == search || artistName == search) {
-                        console.log(filteredData);
+                        filteredData.push(data);
                     }
                 } else {
                     if (songName.toUpperCase().includes(search.toUpperCase()) || animeName.toUpperCase().includes(search.toUpperCase()) || artistName.toUpperCase().includes(search.toUpperCase()) || checkReverseNames(artistName, search)) {
