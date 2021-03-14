@@ -88,7 +88,7 @@ function formatTable(fullData, tableName, search) {
                     console.log("Clearing Name");
                     console.log(artistName);
                     console.log(window.location.href.indexOf("artist"));
-                    console.log(window.location.href.indexOf("artist") < 0))
+                    console.log(window.location.href.indexOf("artist") < 0);
                     artistName = ''
                 }
                 songName = ''
