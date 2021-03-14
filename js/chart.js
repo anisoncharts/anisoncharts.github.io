@@ -77,9 +77,9 @@ function formatTable(fullData, tableName, search) {
         if (typeof tableData !== "undefined") {
             tableData.forEach(function(data) {
                 cols = data.length;
-                animeName = data[[0]];
-                songName = data[[cols - 3]];
-                artistName = data[[cols - 2]];
+                animeName = data[[0]].trim();
+                songName = data[[cols - 3]].trim();
+                artistName = data[[cols - 2]].trim();
                 /* removing names from unrelated searches */
                 if (window.location.href.indexOf("anime") < 0) {
                     animeName = ''
@@ -88,16 +88,10 @@ function formatTable(fullData, tableName, search) {
                     artistName = ''
                 }
                 songName = ''
+                search = search.trim();
 
                 if ($("#exactMatch").is(':checked')) {
-                    console.log(data);
-                    console.log(artistName.toUpperCase());
-                    console.log(search.toUpperCase());
-                    console.log(artistName.toUpperCase() == search.toUpperCase());
-                    console.log(artistName.toUpperCase().trim() == search.toUpperCase().trim());
-
-                    if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase().trim() == search.toUpperCase().trim()) {
-                        filteredData.push(data);
+                    if (songName == search || animeName == search || artistName == search) {
                         console.log(filteredData);
                     }
                 } else {
