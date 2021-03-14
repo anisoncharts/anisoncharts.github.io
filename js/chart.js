@@ -91,9 +91,12 @@ function formatTable(fullData, tableName, search) {
 
                 if ($("#exactMatch").is(':checked')) {
                     console.log(data);
-                    console.log(artistName);
-                    console.log(search);
-                    if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase() == search.toUpperCase()) {
+                    console.log(artistName.toUpperCase());
+                    console.log(search.toUpperCase());
+                    console.log(artistName.toUpperCase() == search.toUpperCase());
+                    console.log(artistName.toUpperCase().trim() == search.toUpperCase().trim());
+
+                    if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase().trim() == search.toUpperCase().trim()) {
                         filteredData.push(data);
                         console.log(filteredData);
                     }
