@@ -46,8 +46,8 @@ $("#showonly").change(function() {
 $("#exactMatch").change(function() {
 	localStorage.exactMatch = $("#exactMatch").is(':checked');
     if ($("#exactMatch").is(':checked') && (window.location.href.indexOf("anime") >= 0 || window.location.href.indexOf("artist") >= 0 )) {
-        pageTitle = $("h1").text();
-        reloadTable(pageTitle)
+        searchQuery = $("h1").text();
+        reloadTable(searchQuery)
     } else {
         reloadTable('')
     }
@@ -61,9 +61,6 @@ $("#displayType").change(function() {
     if (selectedYear == 'All') {
         searchQuery = 'SearchEverything';
     }
-    if ($("#exactMatch").is(':checked') && (window.location.href.indexOf("anime") >= 0 || window.location.href.indexOf("artist") >= 0 )) {
-        searchQuery = $("h1").text();
-	}
     for(var key in dict) {
         formatTable(obj[key], dict[key], searchQuery)
     }
