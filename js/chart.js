@@ -85,11 +85,16 @@ function formatTable(fullData, tableName, search) {
                     animeName = ''
                 }
                 if (window.location.href.indexOf("artist") < 0) {
+                    console.log("Clearing Name");
+                    console.log(artistName);
+                    console.log(window.location.href.indexOf("artist"));
+                    console.log(window.location.href.indexOf("artist") < 0))
                     artistName = ''
                 }
                 songName = ''
 
                 if ($("#exactMatch").is(':checked')) {
+                    console.log(data);
                     console.log(artistName);
                     console.log(search);
                     if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase() == search.toUpperCase()) {
