@@ -95,22 +95,22 @@ td:nth-of-type(3) {
 
 /* Table 4 & 5 with 5 columns */
 
-table#table4 td:nth-of-type(1), table#table5 td:nth-of-type(1) {
+table.normal td:nth-of-type(1) {
 	width: 28.7%;
 }
 
-table#table4 td:nth-of-type(2), table#table5 td:nth-of-type(2) {
+table.normal td:nth-of-type(2) {
 	width: 3.6%;
 	font-weight: bold;
 }
 
-table#table4 td:nth-of-type(3), table#table5 td:nth-of-type(3) {
+table.normal td:nth-of-type(3) {
 	text-align: center;
 	width: 33px;
 	padding: 0 !important;
 }
 
-table#table4 td:nth-of-type(4), table#table5 td:nth-of-type(4) {
+table.normal td:nth-of-type(4) {
 	width: 30%;
 }
 
@@ -271,7 +271,7 @@ div.alphabet {
     margin-bottom: 10px;
     margin-top: 10px;
 }
- 
+
 div.alphabet span {
     display: table-cell;
     color: #333;
@@ -281,7 +281,7 @@ div.alphabet span {
     border: 1px solid rgba(255,0,0,0);
     padding: 5px 0px;
 }
- 
+
 div.alphabet span:hover {
   color: white !important;
   border: 1px solid #111;
@@ -299,7 +299,7 @@ div.alphabet span:hover {
   background: linear-gradient(to bottom, #585858 0%, #111 100%);
   /* W3C */
 }
- 
+
 div.alphabet span.active {
   color: #333 !important;
   border: 1px solid #979797;

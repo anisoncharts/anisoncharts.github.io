@@ -85,10 +85,6 @@ function formatTable(fullData, tableName, search) {
                     animeName = ''
                 }
                 if (window.location.href.indexOf("artist") < 0) {
-                    console.log("Clearing Name");
-                    console.log(artistName);
-                    console.log(window.location.href.indexOf("artist"));
-                    console.log(window.location.href.indexOf("artist") < 0);
                     artistName = ''
                 }
                 songName = ''
@@ -99,6 +95,7 @@ function formatTable(fullData, tableName, search) {
                     console.log(search);
                     if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase() == search.toUpperCase()) {
                         filteredData.push(data);
+                        console.log(filteredData);
                     }
                 } else {
                     if (songName.toUpperCase().includes(search.toUpperCase()) || animeName.toUpperCase().includes(search.toUpperCase()) || artistName.toUpperCase().includes(search.toUpperCase()) || checkReverseNames(artistName, search)) {
@@ -116,8 +113,12 @@ function formatTable(fullData, tableName, search) {
 
     var displayType = $("#displayType").children("option:selected").val();
     if (displayType == 'normal') {
+		$('#table4').addClass('normal');
+		$('#table5').addClass('normal');
         content += styleNormalTable(tableData, tableName, search);
     } else if (displayType == 'simple') {
+		$('#table4').removeClass('normal');
+		$('#table5').removeClass('normal');
         content += styleSimpleTable(tableData, tableName, search);
     }
 
