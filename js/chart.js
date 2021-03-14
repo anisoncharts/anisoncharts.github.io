@@ -81,6 +81,8 @@ function formatTable(fullData, tableName, search) {
                 songName = data[[cols - 3]];
                 artistName = data[[cols - 2]];
                 /* removing names from unrelated searches */
+                console.log(window.location.href);
+                console.log(window.location.href.indexOf("artist"));
                 if (window.location.href.indexOf("anime") < 0) {
                     animeName = ''
                 }
