@@ -6,8 +6,8 @@ window.onload=function() {
 		var style = document.getElementById("displayType");
 		var exact = document.getElementById("exactMatch");
 
-		if (localStorage.disyplayType !== undefined && style.value) {
-			style.value = localStorage.disyplayType
+		if (localStorage.displayType !== undefined && style.value) {
+			style.value = localStorage.displayType
 		}
 
 		if (localStorage.exactMatch !== null && exact !== null) {
@@ -55,12 +55,15 @@ $("#exactMatch").change(function() {
 
 
 $("#displayType").change(function() {
-    var disyplayType = $(this).children("option:selected").val();
-	localStorage.disyplayType = disyplayType;
+    var displayType = $(this).children("option:selected").val();
+	localStorage.displayType = displayType;
     var selectedYear = $("#year").children("option:selected").val();
     if (selectedYear == 'All') {
         searchQuery = 'SearchEverything';
     }
+    if ($("#exactMatch").is(':checked') && (window.location.href.indexOf("anime") >= 0 || window.location.href.indexOf("artist") >= 0 )) {
+        searchQuery = $("h1").text();
+	}
     for(var key in dict) {
         formatTable(obj[key], dict[key], searchQuery)
     }
