@@ -5,7 +5,7 @@ reloadTable('');
 
 var searchQuery = '';
 
-$(".show").change(function() { 
+$(".show").change(function() {
     if($(this).is(':checked') && ($('#' + dict[this.value] + " tr").length > 1)){
         $('#' + dict[this.value]).show();
     } else {
@@ -44,7 +44,10 @@ $("#displayType").change(function() {
 var obj;
 function reloadTable(search) {
     if($(".data").length == 0) {
-        $('.filter-button').hide();
+        try {
+            $('.filter-button').hide();
+		} catch(err) {
+        }
     } else {
         var text = ($('.data').text());
         obj = JSON.parse(text);
@@ -78,14 +81,14 @@ function formatTable(fullData, tableName, search) {
                 songName = data[[cols - 3]];
                 artistName = data[[cols - 2]];
                 /* removing names from unrelated searches */
-                if (!window.location.href.indexOf("anime") >= 0) {
+                if (window.location.href.indexOf("anime") < 0) {
                     animeName = ''
                 }
-                if (!window.location.href.indexOf("artist") >= 0) {
+                if (window.location.href.indexOf("artist") < 0) {
                     artistName = ''
                 }
                 songName = ''
-                
+
                 if ($("#exactMatch").is(':checked')) {
                     if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase() == search.toUpperCase()) {
                         filteredData.push(data);
@@ -101,9 +104,9 @@ function formatTable(fullData, tableName, search) {
             tableData = filteredData;
         }
     }
-    
+
     var content = '';
-    
+
     var displayType = $("#displayType").children("option:selected").val();
     if (displayType == 'normal') {
         content += styleNormalTable(tableData, tableName, search);
@@ -123,7 +126,7 @@ function formatTable(fullData, tableName, search) {
     } else {
         $('#' + tableName).hide();
     }
-    
+
 }
 
 function checkReverseNames(artistName, search) {
@@ -203,11 +206,11 @@ function styleSimpleTable(tableData, tableName, search) {
             }
             cols = Math.min(data.length, 5)
             content += "<tr>";
-            
+
             var type = data[cols - 3];
             types.push(type);
             var opNumber = countInArray(type, types);
-            
+
             // anime name
             if (tableName == 'table1' || tableName == 'table2') {
                 content += "<td>" + escapeHtml(data[0]) + " " + type + data[1] + "</td>";
@@ -222,14 +225,14 @@ function styleSimpleTable(tableData, tableName, search) {
             } else {
                 content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
             }
-            
+
             // song and aritst
             if (data[cols - 2] == '' && data[cols - 1] == '') {
                 content += '<td></td>';
             } else {
                 content += '<td>"' + escapeHtml(data[cols - 2]) + '" by ' + escapeHtml(data[cols - 1]) + '</td>';
             }
-            
+
             content += "</tr>";
             if (previous[0] == 0) {
                 content += "</tdbody>";
