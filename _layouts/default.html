@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Anison Charts</title>
+<link rel="icon" type="image/gif" href="{{ site.baseurl }}/images/favicon.gif" />
+<link rel="stylesheet" type="text/css" media="all" href="{{ site.baseurl }}/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% if page.data-tables %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+{% endif %}
+{% if page.testpage %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-database.js"></script>
+{% endif %}
+{% include analytics.html %}
+</head>
+
+<body>
+<div class="topnav" id="myTopnav">
+    <div class="topnav-container">
+        <div class="topnav-heading">
+            <a class="topnav-title" href="{{ site.baseurl }}/" style="font-size: 26px" title="Anison Charts" rel="home">Anison Charts</a>
+        </div>
+
+        <div class="topnav-centered">
+            <a href="{{ site.baseurl }}/winter-2021">Winter 2021</a>
+            <a href="{{ site.baseurl }}/">Spring 2021</a>
+            <a href="{{ site.baseurl }}/summer-2021">Summer 2021</a>
+            <a href="{{ site.baseurl }}/fall-2021">Fall 2021</a>
+        </div>
+
+        <div class="topnav-right">
+            <a href="{{ site.baseurl }}/seasons">Seasons</a>
+            <a href="{{ site.baseurl }}/anime/">Anime</a>
+            <a href="{{ site.baseurl }}/artist/">Artists</a>
+            <a href="javascript:void(0);" class="icon" onclick="collapseTopNav()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<main>
+<div id="content" role="main">
+<div class="title">
+    <h1>{{ page.entry-title }}</h1>
+    <span href="javascript:void(0);" class="icon filter-button" onclick="showFilters()">
+        Filter <i class="fa fa-cog"></i>
+    </span>
+</div>
+
+{% if page.testpage %}
+{% else %}
+<div class="filters" style="display:none">
+<label class="box" for="showonly">Type:</label>
+<select id="showonly">
+  <option value="All" selected="selected">All</option>
+  <option value="OP">OP</option>
+  <option value="ED">ED</option>
+  <option value="TM">TM</option>
+  <option value="IN">IN</option>
+</select>
+
+<label class="box" for="displayType">Style:</label>
+<select id="displayType">
+  <option value="normal" selected="selected">Normal</option>
+  <option value="simple">Simple</option>
+</select>
+
+<label class="check"><input type="checkbox" class="show" value="newAnime" id="newAnime" checked> New </label>
+<label class="check"><input type="checkbox" class="show" value="ongoingAnime" id="ongoingAnime" checked> Ongoing </label>
+<label class="check"><input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie </label>
+<label class="check"><input type="checkbox" class="show" value="specialSongs" id="specialSongs" checked> Special </label>
+<label class="check"><input type="checkbox" class="show" value="insertSongs" id="insertSongs" checked> Insert </label>
+<label class="check"><input type="checkbox" class="show" value="exactMatch" id="exactMatch"> Exact Match </label>
+</div>
+{% endif %}
+{{ content }}
+<br>
+</main>
+</body>
+{% if page.testpage %}
+</html>
+{% else %}
+</html>
+<script type="text/javascript" src="{{ site.baseurl }}/js/chart.js"></script>
+{% endif %}
+

@@ -1,0 +1,483 @@
+---
+redirect_from: "testpage/"
+layout: default
+testpage: true
+entry-title: Test Page
+---
+<select id="year">
+  <option value="21">2021</option>
+  <option value="20" selected="selected">2020</option>
+  <option value="19">2019</option>
+  <option value="18">2018</option>
+  <option value="17">2017</option>
+  <option value="16">2016</option>
+  <option value="15">2015</option>
+  <option value="14">2014</option>
+  <option value="13">2013</option>
+  <option value="12">2012</option>
+  <option value="11">2011</option>
+  <option value="10">2010</option>
+  <option value="09">2009</option>
+  <option value="08">2008</option>
+  <option value="07">2007</option>
+  <option value="06">2006</option>
+  <option value="05">2005</option>
+  <option value="04">2004</option>
+  <option value="03">2003</option>
+  <option value="02">2002</option>
+  <option value="01">2001</option>
+  <option value="00">2000</option>
+  <option value="99">1999</option>
+  <option value="98">1998</option>
+  <option value="97">1997</option>
+  <option value="96">1996</option>
+  <option value="95">1995</option>
+  <option value="All">All</option>
+  <!--<option value="94">1994</option>
+  <option value="93">1993</option>
+  <option value="92">1992</option>
+  <option value="91">1991</option>
+  <option value="90">1990</option>-->
+</select>
+
+<select id="season">
+  <option value="Year">Year</option>
+  <option value="Winter" selected="selected">Winter</option>
+  <option value="Spring">Spring</option>
+  <option value="Summer">Summer</option>
+  <option value="Fall">Fall</option>
+</select>
+
+<select id="showonly">
+  <option value="All" selected="selected">All</option>
+  <option value="OP">OP</option>
+  <option value="ED">ED</option>
+  <option value="TM">TM</option>
+  <option value="IN">IN</option>
+</select>
+
+<select id="displayType">
+  <option value="normal" selected="selected">Normal</option>
+  <option value="simple">Simple</option>
+</select>
+
+<input type="checkbox" class="show" value="newAnime" id="newAnime" checked> New Anime
+<input type="checkbox" class="show" value="ongoingAnime" id="ongoingAnime" checked> Ongoing Anime
+<input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie Songs
+<input type="checkbox" class="show" value="specialSongs" id="specialSongs" checked> Special Songs
+<input type="checkbox" class="show" value="insertSongs" id="insertSongs" checked> Insert Songs
+
+<br>
+<form id="searchForm">
+  <input type="text" placeholder="Search.." id="searchBox">
+  <button type="submit">Submit</button>
+    <input type="checkbox" class="show" value="exactMatch" id="exactMatch"> Exact Match
+    <input type="checkbox" class="show" value="searchAnime" id="searchAnime" checked> Anime Name
+    <input type="checkbox" class="show" value="searchTitle" id="searchTitle" checked> Song Name
+    <input type="checkbox" class="show" value="searchArtist" id="searchArtist" checked> Artist Name
+</form>
+
+<table id="table1" hidden>
+</table>
+
+<table id="table2" hidden>
+</table>
+
+<table id='table3' hidden>
+</table>
+
+<table id='table4' style='width: 918' hidden>
+</table>
+
+<table id='table5' style='width: 918' hidden>
+</table>
+
+<p><a href='https://docs.google.com/spreadsheets/d/1-J2nDswOsml_0oqfgn27G5eAFaPW-LB__VBo56WGmtA/' target='_blank'>Source</a><br />
+<script>
+var config = {
+    apiKey: "AIzaSyD01lwLfyYJZBa3zickc7h8V7vLpZVh1YQ",
+    databaseURL: "https://anison-charts.firebaseio.com/",
+};
+firebase.initializeApp(config);
+
+var dict = {'newAnime': 'table1', 'ongoingAnime': 'table2', 'movieSongs': 'table3', 'specialSongs': 'table4', 'insertSongs': 'table5'}
+var revDict = {'table1': 'newAnime', 'table2': 'ongoingAnime', 'table3': 'movieSongs', 'table4': 'specialSongs', 'table5': 'insertSongs'}
+
+reloadTable("Summer", 19, '');
+
+var searchQuery = '';
+
+$(".show").change(function() {
+    if($(this).is(':checked') && ($('#' + dict[this.value] + " tr").length > 1)){
+        $('#' + dict[this.value]).show();
+    } else {
+        $('#' + dict[this.value]).hide();
+    }
+});
+
+$("#year").change(function() {
+    var selectedYear = $(this).children("option:selected").val();
+    var selectedSeason = $("#season").children("option:selected").val();
+    reloadTable(selectedSeason, selectedYear, '');
+    $('#searchBox').val('');
+    searchQuery = '';
+});
+
+$("#showonly").change(function() {
+    var showType = $("#showonly").children("option:selected").val();
+    for(var key in dict) {
+        formatTable(obj[key], dict[key], searchQuery)
+    }
+});
+
+
+var previous;
+$("#season").on('focus', function () {
+    previous = this.value;
+}).change(function() {
+    var selectedSeason = $(this).children("option:selected").val();
+    var selectedYear = $("#year").children("option:selected").val();
+    reloadTable(selectedSeason, selectedYear, '');
+    //if (selectedSeason == 'Year') {
+    //    $("#ongoingAnime").prop("checked", false);
+    //}
+    //if (previous == 'Year') {
+    //    $("#ongoingAnime").prop("checked", true);
+    //}
+    $('#searchBox').val('');
+    searchQuery = '';
+    previous = selectedSeason;
+});
+
+$("#displayType").change(function() {
+    var disyplayType = $(this).children("option:selected").val();
+    var selectedYear = $("#year").children("option:selected").val();
+    if (selectedYear == 'All') {
+        searchQuery = 'SearchEverything';
+    }
+    for(var key in dict) {
+        formatTable(obj[key], dict[key], searchQuery)
+    }
+});
+
+$(function() {
+    $('#searchForm').on("submit",function(e) {
+        e.preventDefault();
+        searchQuery = $('#searchBox').val().trim();
+        var selectedSeason = $("#season").children("option:selected").val();
+        var selectedYear = $("#year").children("option:selected").val();
+        reloadTable(selectedSeason, selectedYear, searchQuery);
+    });
+});
+
+var obj
+function reloadTable(season, year, search) {
+    var database = firebase.database();
+    var url = '/season/' + season + ' ' + year;
+    if (season == 'Year') {
+        url = '/year/' + year;
+    }
+    if (search != '') {
+        url = '/fulldata/';
+    }
+    if (year == 'All') {
+        url = '/fulldata/';
+        search = 'SearchEverything';
+    }
+    firebase.database().ref(url).once('value').then(function(snapshot) {
+        if(snapshot.exists()){
+            obj = JSON.parse(snapshot.val());
+            for(var key in dict) {
+                formatTable(obj[key], dict[key], search);
+            }
+        } else {
+            for(var key in dict) {
+                $('.' + dict[key]).remove();
+                $('#' + dict[key]).hide();
+            }
+        }
+    });
+}
+
+function formatTable(fullData, tableName, search) {
+    var showType = $("#showonly").children("option:selected").val();
+    var tableData = [];
+    var filteredData = [];
+    if (showType == 'All') {
+        tableData = fullData;
+    } else {
+        fullData.forEach(function(data) {
+            cols = data.length;
+            if (search != '') {
+                cols = cols - 1;
+            }
+            if (data[[cols - 3]] == showType) {
+                tableData.push(data);
+            }
+        });
+    }
+    if (search != '') {
+        tableData.forEach(function(data) {
+            cols = data.length;
+            animeName = data[[0]];
+            songName = data[[cols - 3]];
+            artistName = data[[cols - 2]];
+            if (!$("#searchAnime").is(':checked')) {
+                animeName = '';
+            }
+            if (!$("#searchTitle").is(':checked')) {
+                songName = '';
+            }
+            if (!$("#searchArtist").is(':checked')) {
+                artistName = '';
+            }
+
+            if ($("#exactMatch").is(':checked')) {
+                if (songName.toUpperCase() == search.toUpperCase() || animeName.toUpperCase() == search.toUpperCase() || artistName.toUpperCase() == search.toUpperCase()) {
+                    filteredData.push(data);
+                }
+            } else {
+                if (songName.toUpperCase().includes(search.toUpperCase()) || animeName.toUpperCase().includes(search.toUpperCase()) || artistName.toUpperCase().includes(search.toUpperCase()) || checkReverseNames(artistName, search)) {
+                    filteredData.push(data);
+                } else if (search == "SearchEverything") {
+                    filteredData.push(data);
+                }
+            }
+        });
+        tableData = filteredData;
+    }
+
+    var content = '';
+
+    var displayType = $("#displayType").children("option:selected").val();
+    if (displayType == 'normal') {
+        content += styleNormalTable(tableData, tableName, search);
+    } else if (displayType == 'simple') {
+        content += styleSimpleTable(tableData, tableName, search);
+    }
+
+    $('.' + tableName).remove();
+    createTableHead(tableName, displayType);
+    if (tableData && tableData.length > 0) {
+        $('#' + tableName).append(content);
+        if ($('#' + revDict[tableName]).is(":checked")){
+            $('#' + tableName).show();
+        } else {
+            $('#' + tableName).hide();
+        }
+    } else {
+        $('#' + tableName).hide();
+    }
+
+}
+
+function checkReverseNames(artistName, search) {
+    artistName = artistName.toUpperCase();
+    search = search.replace(/\s{2,}/g, ' ');
+    searches = search.toUpperCase().split(' ');
+    var i = 0
+    searches.forEach(function(data){
+        if (artistName.includes(data)) {
+            i++;
+        }
+    });
+    if (i >= searches.length) {
+        return true;
+    }
+    return false;
+}
+
+function escapeHtml(string) {
+    return String(string).replace(/[<>\/]/g, function (s) {
+        if (s == '<') {
+            return '&lt;';
+        } else if (s == '>') {
+            return '&gt;';
+        } else {
+            return s;
+        }
+    });
+}
+
+function styleNormalTable(tableData, tableName, search) {
+    content = ''
+    var i = 0;
+    var previous = [0, 0, 0, 0, 0];
+    tableData.forEach(function(data){
+        if (previous[0] == 0) {
+            content += "<tbody class='" + tableName + "'>";
+        }
+        cols = data.length;
+        if (search != '') {
+            cols = cols - 1;
+        }
+        content += "<tr>";
+        content += formatEntry(i, tableData, previous, 0);
+        if (tableName == 'table4' || tableName == 'table5') {
+            content += "<td>" + data[1] + "</td>";
+        }
+        content += "<td><span class='" + data[cols - 3] + "'>" + data[cols - 3] + "</span></td>"
+        content += formatEntry(i, tableData, previous, cols - 1);
+        content += formatEntry(i, tableData, previous, cols - 2);
+        content += "</tr>";
+        if (previous[0] == 0) {
+            content += "</tdbody>";
+            previous = [0, 0, 0, 0, 0];
+        }
+        i++;
+    });
+    return content;
+}
+
+function styleSimpleTable(tableData, tableName, search) {
+    content = '';
+    var i = 0;
+    var previous = [0];
+    var types = [];
+    tableData.forEach(function(data){
+        if (previous[0] == 0) {
+            content += "<tbody class='" + tableName + "'>";
+            rowSpan = getOccurrencess(i, tableData, 0);
+            if (rowSpan > 1) {
+                previous[0] = rowSpan - 1;
+            }
+        } else {
+            previous[0] = previous[0] - 1;
+        }
+        cols = data.length;
+        if (search != '') {
+            cols = cols - 1;
+        }
+        content += "<tr>";
+
+        var type = data[cols - 3];
+        types.push(type);
+        var opNumber = countInArray(type, types);
+
+        // anime name
+        if (tableName == 'table1' || tableName == 'table2') {
+            content += "<td>" + escapeHtml(data[0]) + " " + type + data[1] + "</td>";
+        } else if (tableName == 'table4') {
+            content += "<td>" + escapeHtml(data[0]) + " EP " + data[1] + " " + type + "</td>";
+        } else if (tableName == 'table5') {
+            if (data[1].includes(",") || data[1].includes("-")) {
+                content += "<td>" + escapeHtml(data[0]) + " (EPs " + data[1] + ")</td>";
+            } else {
+                content += "<td>" + escapeHtml(data[0]) + " (EP " + data[1] + ")</td>";
+            }
+        } else {
+            content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
+        }
+
+        // song and aritst
+        if (data[cols - 2] == '' && data[cols - 1] == '') {
+            content += '<td></td>';
+        } else {
+            content += '<td>"' + escapeHtml(data[cols - 2]) + '" by ' + escapeHtml(data[cols - 1]) + '</td>';
+        }
+
+        content += "</tr>";
+        if (previous[0] == 0) {
+            content += "</tdbody>";
+            previous = [0, 0, 0, 0, 0];
+            types = [];
+        }
+        i++;
+    });
+    return content;
+}
+
+function formatEntry(i, data, previous, pos) {
+    content = "";
+    if (previous[pos] == 0) {
+        rowSpan = getOccurrencess(i, data, pos);
+        if (rowSpan > 1) { // ideally should check previous3 first
+            content += "<td rowspan='" + rowSpan + "'>" + escapeHtml(data[i][pos]) + "</td>";
+            previous[pos] = rowSpan - 1;
+        } else {
+            content += "<td>" + escapeHtml(data[i][pos]) + "</td>";
+        }
+    } else {
+        content += "<td class='emptytd'></td>";
+        previous[pos] = previous[pos] - 1;
+    }
+    return content;
+}
+
+function getOccurrencess(i, data, pos) {
+    occurrences = 1;
+    if (i + 1 < data.length) {
+        while ((data[i][pos] == data[i+1][pos]) && data[i][pos] != "") {
+            occurrences++;
+            i++;
+            if (i + 1 >= data.length) {
+                break;
+            }
+        }
+    }
+    return occurrences;
+}
+
+function countInArray(search, array) {
+    var count = array.reduce(function(n, val) {
+        return n + (val === search);
+    }, 0);
+    return count;
+}
+
+function createTableHead(tableName, displayType) {
+    content = '';
+    content += '<thead class="' + tableName + '">';
+    content += '<tr>';
+    var rowNames = {'head0': '', 'head1': '', 'head2': '', 'head3': '', 'head4': ''};
+    var tableNames = [];
+    if (displayType == 'normal') {
+        switch (tableName) {
+            case 'table1':
+                tableNames.push('Anime', 'Type', 'Artist', 'Song');
+                break;
+            case 'table2':
+                tableNames.push('Ongoing Anime', 'Type', 'Artist', 'Song');
+                break;
+            case 'table3':
+                tableNames.push('Movies / OVAs', 'Type', 'Artist', 'Song');
+                break;
+            case 'table4':
+                tableNames.push('Single Episode Songs', 'Ep', 'Type', 'Artist', 'Song');
+                break;
+            case 'table5':
+                tableNames.push('Insert Songs', 'Ep', 'Type', 'Artist', 'Song');
+        }
+    } else if (displayType == 'simple') {
+        switch (tableName) {
+            case 'table1':
+                tableNames.push('Anime', 'Song & Artist');
+                break;
+            case 'table2':
+                tableNames.push('Ongoing Anime', 'Song & Artist');
+                break;
+            case 'table3':
+                tableNames.push('Movies / OVAs', 'Song & Artist');
+                break;
+            case 'table4':
+                tableNames.push('Single Episode Songs', 'Song & Artist');
+                break;
+            case 'table5':
+                tableNames.push('Insert Songs', 'Song & Artist');
+        }
+    }
+
+    var i = 0;
+    for(i = 0; i < tableNames.length; i++) {
+        rowNames['head' + i] = tableNames[i];
+    }
+    for(var key in rowNames) {
+        if(rowNames[key] != '') {
+            content += '<td>' + rowNames[key] + '</td>';
+        }
+    }
+    content += '</tr>';
+    $('#' + tableName).append(content);
+}
+
+</script>
