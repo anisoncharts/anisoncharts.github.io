@@ -1,7 +1,30 @@
 var dict = {'newAnime': 'table1', 'ongoingAnime': 'table2', 'movieSongs': 'table3', 'specialSongs': 'table4', 'insertSongs': 'table5'}
 var revDict = {'table1': 'newAnime', 'table2': 'ongoingAnime', 'table3': 'movieSongs', 'table4': 'specialSongs', 'table5': 'insertSongs'}
 
-reloadTable('');
+window.onload=function() {
+	if (typeof(Storage) !== "undefined") {
+		var style = document.getElementById("displayType");
+		var exact = document.getElementById("exactMatch");
+
+		if (localStorage.disyplayType !== undefined && style.value) {
+			style.value = localStorage.disyplayType
+		}
+
+		if (localStorage.exactMatch !== null && exact !== null) {
+			if (localStorage.exactMatch == 'true') {
+				exact.checked = true;
+			} else {
+				exact.checked = false;
+			}
+			$("#exactMatch").change();
+		} else {
+			reloadTable('');
+		}
+	} else {
+		reloadTable('');
+	}
+	$('#tableContainer').show();
+}
 
 var searchQuery = '';
 
@@ -21,6 +44,7 @@ $("#showonly").change(function() {
 });
 
 $("#exactMatch").change(function() {
+	localStorage.exactMatch = $("#exactMatch").is(':checked');
     if ($("#exactMatch").is(':checked') && (window.location.href.indexOf("anime") >= 0 || window.location.href.indexOf("artist") >= 0 )) {
         pageTitle = $("h1").text();
         reloadTable(pageTitle)
@@ -32,6 +56,7 @@ $("#exactMatch").change(function() {
 
 $("#displayType").change(function() {
     var disyplayType = $(this).children("option:selected").val();
+	localStorage.disyplayType = disyplayType;
     var selectedYear = $("#year").children("option:selected").val();
     if (selectedYear == 'All') {
         searchQuery = 'SearchEverything';
@@ -153,15 +178,8 @@ function checkReverseNames(artistName, search) {
 }
 
 function escapeHtml(string) {
-    return String(string).replace(/[<>\/]/g, function (s) {
-        if (s == '<') {
-            return '&lt;';
-        } else if (s == '>') {
-            return '&gt;';
-        } else {
-            return s;
-        }
-    });
+    // no longer needed
+    return string;
 }
 
 function styleNormalTable(tableData, tableName, search) {
