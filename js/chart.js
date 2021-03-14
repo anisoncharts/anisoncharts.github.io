@@ -178,8 +178,15 @@ function checkReverseNames(artistName, search) {
 }
 
 function escapeHtml(string) {
-    // no longer needed
-    return string;
+    return String(string).replace(/[<>\/]/g, function (s) {
+        if (s == '<') {
+            return '&lt;';
+        } else if (s == '>') {
+            return '&gt;';
+        } else {
+            return s;
+        }
+    });
 }
 
 function styleNormalTable(tableData, tableName, search) {
