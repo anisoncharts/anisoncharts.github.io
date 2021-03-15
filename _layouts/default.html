@@ -50,13 +50,16 @@
 <div class="title">
     <h1>{{ page.entry-title }}</h1>
 {% if page.data-tables %}
-{% else %}<span href="javascript:void(0);" class="icon filter-button" onclick="showFilters()">
+{% else %}
+    <span href="javascript:void(0);" class="icon filter-button" onclick="showFilters()">
         Filter <i class="fa fa-cog"></i>
     </span>
-{% endif %}</div>
+{% endif %}
+</div>
 
 {% if page.testpage %}
-{% else %}<div class="filters" style="display:none">
+{% else %}
+<div class="filters" style="display:none">
 <label class="box" for="showonly">Type:</label>
 <select id="showonly">
   <option value="All" selected="selected">All</option>
@@ -71,16 +74,22 @@
   <option value="normal" selected="selected">Normal</option>
   <option value="simple">Simple</option>
 </select>
-  {% if page.season %}<label class="check"><input type="checkbox" class="show" value="newAnime" id="newAnime" checked> New </label>
+  {% if page.season %}
+<label class="check"><input type="checkbox" class="show" value="newAnime" id="newAnime" checked> New </label>
 <label class="check"><input type="checkbox" class="show" value="ongoingAnime" id="ongoingAnime" checked> Ongoing </label>
-  {% else %}<label class="check"><input type="checkbox" class="show" value="newAnime" id="newAnime" checked> Anime </label>
-  {% endif %}<label class="check"><input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie </label>
+  {% else %}
+<label class="check"><input type="checkbox" class="show" value="newAnime" id="newAnime" checked> Anime </label>
+  {% endif %}
+<label class="check"><input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie </label>
 <label class="check"><input type="checkbox" class="show" value="specialSongs" id="specialSongs" checked> Special </label>
 <label class="check"><input type="checkbox" class="show" value="insertSongs" id="insertSongs" checked> Insert </label>
   {% if page.season %}
-  {% else %}<label class="check"><input type="checkbox" class="show" value="exactMatch" id="exactMatch"> Exact Match </label>
-  {% endif %}</div>
-{% endif %}{{ content }}
+  {% else %}
+<label class="check"><input type="checkbox" class="show" value="exactMatch" id="exactMatch"> Exact Match </label>
+  {% endif %}
+</div>
+{% endif %}
+{{ content }}
 <br>
 </main>
 </body>
