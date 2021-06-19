@@ -112,6 +112,10 @@ function formatTable(fullData, tableName, search) {
                 if (window.location.href.indexOf("artist") < 0) {
                     artistName = ''
                 }
+                epIdentifier = animeName.indexOf(" (EP");
+                if (epIdentifier > 0) {
+                    animeName = animeName.substring(0,epIdentifier);
+                }
                 songName = ''
                 search = search.trim();
 
