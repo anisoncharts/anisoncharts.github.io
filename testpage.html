@@ -63,11 +63,17 @@ entry-title: Test Page
   <option value="simple">Simple</option>
 </select>
 
+<select id="orderBy">
+  <option value="normal" selected="selected">Anime</option>
+  <option value="artistName">Artist</option>
+  <option value="songName">Song</option>
+</select>
+
 <input type="checkbox" class="show" value="newAnime" id="newAnime" checked> New Anime
-<input type="checkbox" class="show" value="ongoingAnime" id="ongoingAnime" checked> Ongoing Anime
-<input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie Songs
-<input type="checkbox" class="show" value="specialSongs" id="specialSongs" checked> Special Songs
-<input type="checkbox" class="show" value="insertSongs" id="insertSongs" checked> Insert Songs
+<input type="checkbox" class="show" value="ongoingAnime" id="ongoingAnime" checked> Ongoing
+<input type="checkbox" class="show" value="movieSongs" id="movieSongs" checked> Movie
+<input type="checkbox" class="show" value="specialSongs" id="specialSongs" checked> Special
+<input type="checkbox" class="show" value="insertSongs" id="insertSongs" checked> Insert
 
 <br>
 <form id="searchForm">
@@ -108,6 +114,8 @@ var revDict = {'table1': 'newAnime', 'table2': 'ongoingAnime', 'table3': 'movieS
 reloadTable("Summer", 19, '');
 
 var searchQuery = '';
+var sortingColumn = 0;
+var currentSort = 'normal';
 
 $(".show").change(function() {
     if($(this).is(':checked') && ($('#' + dict[this.value] + " tr").length > 1)){
@@ -153,6 +161,16 @@ $("#season").on('focus', function () {
 
 $("#displayType").change(function() {
     var disyplayType = $(this).children("option:selected").val();
+    var selectedYear = $("#year").children("option:selected").val();
+    if (selectedYear == 'All') {
+        searchQuery = 'SearchEverything';
+    }
+    for(var key in dict) {
+        formatTable(obj[key], dict[key], searchQuery)
+    }
+});
+
+$("#orderBy").change(function() {
     var selectedYear = $("#year").children("option:selected").val();
     if (selectedYear == 'All') {
         searchQuery = 'SearchEverything';
@@ -218,6 +236,11 @@ function formatTable(fullData, tableName, search) {
             }
         });
     }
+    var orderType = $("#orderBy").children("option:selected").val();
+    if (orderType != 'normal' || currentSort != 'normal') {
+        tableData = sortTable(tableData, orderType, search);
+    }
+
     if (search != '') {
         tableData.forEach(function(data) {
             cols = data.length;
@@ -272,6 +295,39 @@ function formatTable(fullData, tableName, search) {
     }
 
 }
+
+function sortTable(tableData, orderBy, search) {
+    if (typeof tableData !== 'undefined' && tableData.length > 0) {
+        cols = tableData[0].length;
+        if (search != '') {
+            cols = cols - 1;
+        }
+        switch(orderBy) {
+            case 'songName':
+                sortingColumn = cols - 2;
+                break;
+            case 'artistName':
+                sortingColumn = cols - 1;
+                break;
+            default:
+                sortingColumn = 0;
+                break;
+        }
+        tableData.sort(sortFunction);
+        currentSort = search;
+    }
+    return tableData;
+}
+
+function sortFunction(a, b) {
+    if (a[sortingColumn] === b[sortingColumn]) {
+        return 0;
+    }
+    else {
+        return (a[sortingColumn] < b[sortingColumn]) ? -1 : 1;
+    }
+}
+
 
 function checkReverseNames(artistName, search) {
     artistName = artistName.toUpperCase();

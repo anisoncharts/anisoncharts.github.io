@@ -51,6 +51,8 @@
     <h1>{{ page.entry-title }}</h1>
 {% if page.data-tables %}
 {% else %}
+    {% if page.testpage %}
+    {% endif %}
     <span href="javascript:void(0);" class="icon filter-button" onclick="showFilters()">
         Filter <i class="fa fa-cog"></i>
     </span>
