@@ -16,4 +16,5 @@ csv/
 .local/
 .virtualenvs/
 .ssh/
+.ipython
 README.txt
