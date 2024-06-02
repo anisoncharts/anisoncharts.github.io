@@ -86,7 +86,7 @@ function formatTable(fullData, tableName, search) {
     var showType = $("#showonly").children("option:selected").val();
     var tableData = [];
     var filteredData = [];
-    var identifiers = [" (EP", " (BD", " (DVD", "(LD"];
+    var identifiers = [" (EP", " (BD", " (DVD", " (LD"];
 
     if (showType == 'All') {
         tableData = fullData;
@@ -262,10 +262,17 @@ function styleSimpleTable(tableData, tableName, search) {
                     content += "<td>" + escapeHtml(data[0]) + " (EP " + data[1] + ")</td>";
                 }
             } else {
-                if (data[1] == null) {
-                    content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
+                // Change (EP 1) to EP 1
+                if (typeof data[0] === 'string') {
+                    formattedname = data[0].replace(/\((EP \d+)\)/, '$1');
                 } else {
-                    content += "<td>" + escapeHtml(data[0]) + " " + type + data[1] + "</td>";
+                    formattedname = data[0]
+                }
+
+                if (data[1] == null) {
+                    content += "<td>" + escapeHtml(formattedname) + " " + type + "</td>";
+                } else {
+                    content += "<td>" + escapeHtml(formattedname) + " " + type + data[1] + "</td>";
                 }
             }
 
