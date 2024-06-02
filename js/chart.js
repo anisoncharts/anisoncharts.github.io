@@ -86,6 +86,8 @@ function formatTable(fullData, tableName, search) {
     var showType = $("#showonly").children("option:selected").val();
     var tableData = [];
     var filteredData = [];
+    var identifiers = [" (EP", " (BD", " (DVD", "(LD"];
+
     if (showType == 'All') {
         tableData = fullData;
     } else {
@@ -112,10 +114,13 @@ function formatTable(fullData, tableName, search) {
                 if (window.location.href.indexOf("artist") < 0) {
                     artistName = ''
                 }
-                epIdentifier = animeName.indexOf(" (EP");
-                if (epIdentifier > 0) {
-                    animeName = animeName.substring(0,epIdentifier);
-                }
+                identifiers.forEach(identifier => {
+                    index = animeName.indexOf(identifier);
+                    if (index > 0) {
+                        animeName = animeName.substring(0, index);
+                    }
+                });
+
                 songName = ''
                 search = search.trim();
 
@@ -257,7 +262,11 @@ function styleSimpleTable(tableData, tableName, search) {
                     content += "<td>" + escapeHtml(data[0]) + " (EP " + data[1] + ")</td>";
                 }
             } else {
-                content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
+                if (data[1] == null) {
+                    content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
+                } else {
+                    content += "<td>" + escapeHtml(data[0]) + " " + type + data[1] + "</td>";
+                }
             }
 
             // song and aritst
