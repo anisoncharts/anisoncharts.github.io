@@ -2,6 +2,11 @@
 <html lang="en-US">
 <head>
 <meta charset="UTF-8" />
+{% if page.season %}
+<meta name="description" content="Browse comprehensive lists of all anime opening and ending songs for {{ page.entry-title }} on Anison Charts. Find everything you need to know about upcoming anime songs from your favorite series and artists.">
+{% else %}
+<meta name="description" content="Browse comprehensive lists of all anime opening and ending songs for {{ page.entry-title }} on Anison Charts. Find everything you need to know about anime songs from your favorite series and artists.">
+{% endif %}
 <title>Anison Charts</title>
 <link rel="icon" type="image/gif" href="{{ site.baseurl }}/images/favicon.gif" />
 <link rel="stylesheet" type="text/css" media="all" href="{{ site.baseurl }}/css/style.css" />
