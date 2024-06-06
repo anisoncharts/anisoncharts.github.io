@@ -426,7 +426,18 @@ function styleSimpleTable(tableData, tableName, search) {
                 content += "<td>" + escapeHtml(data[0]) + " (EP " + data[1] + ")</td>";
             }
         } else {
-            content += "<td>" + escapeHtml(data[0]) + " " + type + "</td>";
+            // Change (EP 1) to EP 1
+            if (typeof data[0] === 'string') {
+                formattedname = data[0].replace(/\((EP \d+)\)/, '$1');
+            } else {
+                formattedname = data[0]
+            }
+
+            if (data[1] == null) {
+                content += "<td>" + escapeHtml(formattedname) + " " + type + "</td>";
+            } else {
+                content += "<td>" + escapeHtml(formattedname) + " " + type + data[1] + "</td>";
+            }
         }
 
         // song and aritst
