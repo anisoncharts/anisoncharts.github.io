@@ -4,48 +4,18 @@ layout: default
 testpage: true
 entry-title: Test Page
 ---
+{% assign current_year = "now" | date: "%Y" | plus: 0 %}
+{% assign start_year = current_year | plus: 1 %}
+
 <select id="year">
-  <option value="26">2026</option>
-  <option value="25" selected="selected">2025</option>
-  <option value="24">2024</option>
-  <option value="23">2023</option>
-  <option value="22">2022</option>
-  <option value="21">2021</option>
-  <option value="20">2020</option>
-  <option value="19">2019</option>
-  <option value="18">2018</option>
-  <option value="17">2017</option>
-  <option value="16">2016</option>
-  <option value="15">2015</option>
-  <option value="14">2014</option>
-  <option value="13">2013</option>
-  <option value="12">2012</option>
-  <option value="11">2011</option>
-  <option value="10">2010</option>
-  <option value="09">2009</option>
-  <option value="08">2008</option>
-  <option value="07">2007</option>
-  <option value="06">2006</option>
-  <option value="05">2005</option>
-  <option value="04">2004</option>
-  <option value="03">2003</option>
-  <option value="02">2002</option>
-  <option value="01">2001</option>
-  <option value="00">2000</option>
-  <option value="99">1999</option>
-  <option value="98">1998</option>
-  <option value="97">1997</option>
-  <option value="96">1996</option>
-  <option value="95">1995</option>
-  <option value="94">1994</option>
-  <option value="93">1993</option>
-  <option value="92">1992</option>
-  <option value="91">1991</option>
-  <option value="90">1990</option>
+  {% for year in (1990..start_year) reversed %}
+    {% assign value = year | modulo: 100 %}
+    <option value="{{ value | prepend: '00' | slice: -2, 2 }}"
+      {% if year == current_year %}selected="selected"{% endif %}>
+      {{ year }}
+    </option>
+  {% endfor %}
   <option value="All">All</option>
-  <!--
-  <option value="91">1991</option>
-  <option value="90">1990</option>-->
 </select>
 
 <select id="season">
