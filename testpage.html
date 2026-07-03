@@ -4,9 +4,8 @@ layout: default
 testpage: true
 entry-title: Test Page
 ---
-{% assign current_year = "now" | date: "%Y" | plus: 0 %}
+{% assign start_year = "now" | date: "%Y" | plus: 1 %}
 {% assign current_month = "now" | date: "%-m" | plus: 0 %}
-{% assign start_year = current_year | plus: 1 %}
 {% assign seasons = "Winter,Spring,Summer,Fall" | split: "," %}
 {% assign season_year = "now" | date: "%y" | plus: 0 %}
 
@@ -27,7 +26,7 @@ entry-title: Test Page
   {% for year in (1990..start_year) reversed %}
     {% assign value = year | modulo: 100 %}
     <option value="{{ value | prepend: '00' | slice: -2, 2 }}"
-      {% if year == current_year %}selected="selected"{% endif %}>
+      {% if value == season_year %}selected="selected"{% endif %}>
       {{ year }}
     </option>
   {% endfor %}
