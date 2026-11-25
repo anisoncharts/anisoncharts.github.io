@@ -1,18 +1,15 @@
 /* Main */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: arial;
+  margin: 0;
+  padding: 0;
+  font-family: arial;
 }
 
 #content {
 	background: white;
-    width: 920px;
-    margin: auto;
+  width: 920px;
+  margin: auto;
 }
-
-/* Black = #121212 */
-/* Gray = #f1f1f1 */
 
 /* Table */
 table {
@@ -23,8 +20,7 @@ table {
 	text-align: left;
 	color: #00468A;
 	border-collapse: collapse;
-	border-spacing: 0;
-    margin: 20px 0px;
+  margin: 20px 0px;
 }
 
 thead tr {
@@ -37,13 +33,8 @@ thead tr {
 
 td, thead td {
 	border-right: 1px solid #fff;
-	border-bottom: 1px solid #fff !important;
-	border-top: 0 !important;
+	border-bottom: 1px solid #fff;
 	vertical-align: middle;
-}
-
-td:first-of-type {
-	border-left: 0px solid #fff;
 }
 
 td:last-of-type {
@@ -65,20 +56,20 @@ td:nth-of-type(1) {
 
 td:nth-of-type(2){
 	text-align: center;
-	padding: 0 0 0px !important;
+	padding: 0;
 	height: 23px;
 }
 
 td:nth-of-type(3), td:nth-of-type(4), td:nth-of-type(5) {
-	padding: 0 3px !important;
+	padding: 0 3px;
 }
 
 thead td:nth-of-type(2) {
-	padding: 0 !important;
+	padding: 0;
 }
 
 .emptytd {
-	display: none !important;
+	display: none;
 }
 
 td:nth-of-type(1) {
@@ -107,7 +98,7 @@ table.normal td:nth-of-type(2) {
 table.normal td:nth-of-type(3) {
 	text-align: center;
 	width: 33px;
-	padding: 0 !important;
+	padding: 0;
 }
 
 table.normal td:nth-of-type(4) {
@@ -116,27 +107,27 @@ table.normal td:nth-of-type(4) {
 
 /* Type Color */
 
-.op, .OP {
+.OP {
 	background-color: #f26522;
 	padding: 1px 5px;
 }
 
-.ed, .ED {
+.ED {
 	background-color: #000066;
 	padding: 1px 5px;
 }
 
-.tm, .TM {
+.TM {
 	background-color: #ec008c;
 	padding: 1px 5px;
 }
 
-.in, .IN {
+.IN {
 	background-color: #00a651;
 	padding: 1px 8px;
 }
 
-.op, .ed, .tm, .in, .OP, .ED, .TM, .IN {
+.OP, .ED, .TM, .IN {
 	color: #fff;
 	font-weight: bold;
 	font-size: 11px;
@@ -159,14 +150,8 @@ table.normal td:nth-of-type(4) {
     cursor: pointer;
 }
 
-.title table {
-    margin-top: 0px;
-}
-
 .check {
     cursor: pointer;
-    border: 10px;
-    border-color: black;
     display: inline-block;
     margin: 0px 5px;
 }
@@ -193,15 +178,15 @@ select {
 }
 
 /* Seasonals Table */
-.seasonTable td:nth-of-type(1) {
-    width: 10% !important;
+#seasonTable td:nth-of-type(1) {
+    width: 10%;
     text-align: center;
 }
 
-.seasonTable td {
+#seasonTable td {
     width: 22.5%;
     text-align: center;
-    padding: 3.5px 0px !important;
+    padding: 3.5px 0px;
 }
 
 
@@ -227,17 +212,10 @@ select {
   padding: 5px 12px 0;
   text-decoration: none;
   font-size: 13px;
-  vertical-align: middle;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #00386E;
-  color: white;
-}
-
-/* Add an active class to highlight the current page */
-.topnav a.active {
   background-color: #00386E;
   color: white;
 }
@@ -283,7 +261,7 @@ div.alphabet span {
 }
 
 div.alphabet span:hover {
-  color: white !important;
+  color: white;
   border: 1px solid #111;
   background-color: #585858;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
@@ -301,7 +279,7 @@ div.alphabet span:hover {
 }
 
 div.alphabet span.active {
-  color: #333 !important;
+  color: #333;
   border: 1px solid #979797;
   background-color: white;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dcdcdc));
@@ -323,7 +301,7 @@ table#dataTable {
 }
 
 table#dataTable thead tr th {
-    padding: 0px !important;
+    padding: 0px;
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */

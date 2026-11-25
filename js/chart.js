@@ -153,7 +153,7 @@ function formatTable(fullData, tableName, search) {
         content += styleSimpleTable(tableData, tableName, search);
     }
 
-    $('.' + tableName).remove();
+    $('#' + tableName + ' thead, #' + tableName + ' tbody').remove();
     createTableHead(tableName, displayType);
     if (tableData && tableData.length > 0) {
         $('#' + tableName).append(content);
@@ -205,7 +205,7 @@ function styleNormalTable(tableData, tableName, search) {
     if (typeof tableData !== "undefined") {
         tableData.forEach(function(data){
             if (previous[0] == 0) {
-                content += "<tbody class='" + tableName + "'>";
+                content += "<tbody>";
             }
             cols = Math.min(data.length, 5)
             content += "<tr>";
@@ -235,7 +235,7 @@ function styleSimpleTable(tableData, tableName, search) {
     if (typeof tableData !== "undefined") {
         tableData.forEach(function(data){
             if (previous[0] == 0) {
-                content += "<tbody class='" + tableName + "'>";
+                content += "<tbody>";
                 rowSpan = getOccurrencess(i, tableData, 0);
                 if (rowSpan > 1) {
                     previous[0] = rowSpan - 1;
@@ -335,7 +335,7 @@ function countInArray(search, array) {
 
 function createTableHead(tableName, displayType) {
     content = '';
-    content += '<thead class="' + tableName + '">';
+    content += '<thead>';
     content += '<tr>';
     var rowNames = {'head0': '', 'head1': '', 'head2': '', 'head3': '', 'head4': ''};
     var tableNames = [];
