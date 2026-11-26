@@ -1,4 +1,8 @@
 /* Main */
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -7,13 +11,15 @@ body {
 
 #content {
 	background: white;
-  width: 920px;
+	width: 100%;
+	max-width: 920px;
   margin: auto;
 }
 
 /* Table */
 table {
-	width: 920px;
+	width: 100%;
+	max-width: 920px;
 	border: 0 !important;
 	line-height: 1.5em;
 	font-size: 13px;
@@ -85,7 +91,6 @@ td:nth-of-type(3) {
 }
 
 /* Table 4 & 5 with 5 columns */
-
 table.normal td:nth-of-type(1) {
 	width: 28.7%;
 }
@@ -169,6 +174,14 @@ table.normal td:nth-of-type(4) {
     text-align: center;
 }
 
+/* Margin for main elements on small screens */
+.title,
+.filters,
+#tableContainer > p {
+    margin-left: clamp(0px, calc(75px - 7.5vw), 10px);
+    margin-right: clamp(0px, calc(75px - 7.5vw), 10px);
+}
+
 select {
     min-width: 50px;
 }
@@ -189,22 +202,23 @@ select {
     padding: 3.5px 0px;
 }
 
-
 /* Navbar */
-
 .topnav {
   position: relative;
   background-color: #00274C;
-  overflow: hidden;
 }
 
 .topnav-container {
-    max-width: 1000px;
-    margin: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
 }
+
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
+  display: block;
   color: #fff;
   font-weight: bold;
   line-height: 38px;
@@ -215,31 +229,100 @@ select {
 }
 
 /* Change the color of links on hover */
-.topnav a:hover {
+.topnav a:hover,
+.topnav a:focus-visible {
   background-color: #00386E;
   color: white;
 }
 
+.topnav a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.topnav-title {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
 .topnav-heading a:hover {
-  color: white;
   background-color: #00274C;
 }
 
 .topnav-centered {
-    float: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.topnav-menu {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+}
+
+.topnav-centered a,
+.topnav-right a {
+  flex: 0 0 auto;
 }
 
 .topnav-right {
-  float: right;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 /* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
   display: none;
+}
+
+.topnav.compact .topnav-heading .topnav-title {
+  padding-right: 6px;
+}
+
+.topnav.compact .icon {
+  display: block;
+}
+
+.topnav .nav-hidden {
+  display: none;
+}
+
+.topnav-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 9rem;
+  max-width: calc(100vw - 24px);
+  background-color: #00274C;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 0 0 4px 4px;
+}
+
+.topnav.responsive .topnav-dropdown {
+  display: flex;
+}
+
+.topnav.responsive .topnav-dropdown:empty {
+  display: none;
+}
+
+.topnav-dropdown a {
+  flex: 0 0 auto;
+  text-align: center;
 }
 
 /* Datatables */
@@ -304,26 +387,8 @@ table#dataTable thead tr th {
     padding: 0px;
 }
 
-/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
-@media screen and (max-width: 800px) {
-  .topnav a:not(.topnav-title) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media screen and (max-width: 800px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive a.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
+@media screen and (max-width: 1000px) {
+  html {
+    overflow-y: auto;
   }
 }
