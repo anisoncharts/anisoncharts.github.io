@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" media="all" href="{{ site.baseurl }}/css/style.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script defer src="{{ site.baseurl }}/js/navbar.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {% if page.data-tables %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
@@ -17,6 +18,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-database.js"></script>
+{% else %}
+<script defer src="{{ site.baseurl }}/js/chart.js"></script>
 {% endif %}
 {% include analytics.html %}
 </head>
@@ -98,10 +101,4 @@
 <br>
 </main>
 </body>
-{% if page.testpage %}
 </html>
-{% else %}
-</html>
-<script type="text/javascript" src="{{ site.baseurl }}/js/chart.js"></script>
-{% endif %}
-
