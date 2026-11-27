@@ -103,10 +103,9 @@ function formatTable(fullData, tableName, search) {
     if (search != '') {
         if (typeof tableData !== "undefined") {
             tableData.forEach(function(data) {
-                cols = data.length;
-                animeName = data[[0]].trim();
-                songName = data[[cols - 3]].trim();
-                artistName = data[[cols - 2]].trim();
+                animeName = asSearchText(data[0]).trim();
+                songName = asSearchText(data[3]).trim();
+                artistName = asSearchText(data[4]).trim();
                 /* removing names from unrelated searches */
                 if (window.location.href.indexOf("anime") < 0) {
                     animeName = ''
@@ -169,7 +168,7 @@ function formatTable(fullData, tableName, search) {
 }
 
 function checkReverseNames(artistName, search) {
-    artistName = artistName.toUpperCase();
+    artistName = asSearchText(artistName).toUpperCase();
     search = search.replace(/\s{2,}/g, ' ');
     searches = search.toUpperCase().split(' ');
     var i = 0
@@ -184,6 +183,10 @@ function checkReverseNames(artistName, search) {
         return true;
     }
     return false;
+}
+
+function asSearchText(value) {
+    return value == null ? '' : String(value);
 }
 
 function escapeHtml(string) {

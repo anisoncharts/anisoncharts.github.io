@@ -220,11 +220,7 @@ function formatTable(fullData, tableName, search) {
         tableData = fullData;
     } else {
         fullData.forEach(function(data) {
-            cols = data.length;
-            if (search != '') {
-                cols = cols - 1;
-            }
-            if (data[[cols - 3]] == showType) {
+            if (data[2] == showType) {
                 tableData.push(data);
             }
         });
@@ -236,10 +232,9 @@ function formatTable(fullData, tableName, search) {
 
     if (search != '') {
         tableData.forEach(function(data) {
-            cols = data.length;
-            animeName = data[[0]];
-            songName = data[[cols - 3]];
-            artistName = data[[cols - 2]];
+            animeName = asSearchText(data[0]);
+            songName = asSearchText(data[3]);
+            artistName = asSearchText(data[4]);
             if (!$("#searchAnime").is(':checked')) {
                 animeName = '';
             }
@@ -291,16 +286,12 @@ function formatTable(fullData, tableName, search) {
 
 function sortTable(tableData, orderBy, search) {
     if (typeof tableData !== 'undefined' && tableData.length > 0) {
-        cols = tableData[0].length;
-        if (search != '') {
-            cols = cols - 1;
-        }
         switch(orderBy) {
             case 'songName':
-                sortingColumn = cols - 2;
+                sortingColumn = 3;
                 break;
             case 'artistName':
-                sortingColumn = cols - 1;
+                sortingColumn = 4;
                 break;
             default:
                 sortingColumn = 0;
@@ -323,7 +314,7 @@ function sortFunction(a, b) {
 
 
 function checkReverseNames(artistName, search) {
-    artistName = artistName.toUpperCase();
+    artistName = asSearchText(artistName).toUpperCase();
     search = search.replace(/\s{2,}/g, ' ');
     searches = search.toUpperCase().split(' ');
     var i = 0
@@ -336,6 +327,10 @@ function checkReverseNames(artistName, search) {
         return true;
     }
     return false;
+}
+
+function asSearchText(value) {
+    return value == null ? '' : String(value);
 }
 
 function escapeHtml(string) {
@@ -358,10 +353,7 @@ function styleNormalTable(tableData, tableName, search) {
         if (previous[0] == 0) {
             content += "<tbody class='" + tableName + "'>";
         }
-        cols = data.length;
-        if (search != '') {
-            cols = cols - 1;
-        }
+        cols = Math.min(data.length, 5);
         content += "<tr>";
         content += formatEntry(i, tableData, previous, 0);
         if (tableName == 'table4' || tableName == 'table5') {
@@ -395,10 +387,7 @@ function styleSimpleTable(tableData, tableName, search) {
         } else {
             previous[0] = previous[0] - 1;
         }
-        cols = data.length;
-        if (search != '') {
-            cols = cols - 1;
-        }
+        cols = Math.min(data.length, 5);
         content += "<tr>";
 
         var type = data[cols - 3];
