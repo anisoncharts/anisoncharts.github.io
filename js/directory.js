@@ -17,6 +17,9 @@ $(document).ready(function() {
                 $(nTd).html("<a href='../" + oData.address + "'>" + oData.name + "</a>");
             }
         }],
+        language: {
+            infoFiltered: '(filtered from _MAX_)'
+        },
         pageLength: 25
     });
 
