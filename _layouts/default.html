@@ -10,9 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script defer src="{{ site.baseurl }}/js/navbar.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-{% if page.data-tables %}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+{% if page.directory %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.11/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.11/js/jquery.dataTables.js"></script>
+<script defer src="{{ site.baseurl }}/js/directory.js"></script>
 {% endif %}
 {% if page.testpage %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -55,7 +56,7 @@
 <div id="content" role="main">
 <div class="title">
     <h1>{{ page.entry-title }}</h1>
-{% if page.data-tables %}
+{% if page.directory %}
 {% else %}
     {% if page.testpage %}
     {% endif %}
